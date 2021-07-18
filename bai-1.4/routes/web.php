@@ -26,8 +26,8 @@ Route::post('/dictionary', function (Illuminate\Http\Request $request) {
     $flag = 0;
     foreach ($dictionary as $word => $descriptions) {
         if ($word == $eng) {
-            echo "word $word mean $descriptions";
             $flag = 1;
+            return view('dictionary',compact('word', 'descriptions'));
         }
     }
     if ($flag = 0) {

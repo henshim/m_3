@@ -12,5 +12,6 @@
 <input type="text" name="english" placeholder="english to vietnam">
 <button type="submit">Translation</button>
 </form>
+<p>từ {{$word ?? ''}} nghĩa là {{$descriptions ?? ''}}</p>
 </body>
 </html>
