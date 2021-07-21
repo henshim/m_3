@@ -14,32 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('customer')->group(function(){
-    Route::get('index',function(){
-        Route::get('/',[ShowController::class,'index']);
-    });
+Route::get('/', [ShowController::class, 'list']);
 
-    Route::get('create',function(){
+Route::prefix('customer')->group(function () {
+    Route::get('index', [ShowController::class, 'list']);
+    //dd(Route::get('/',[ShowController::class,'list']));
+
+    Route::get('create', function () {
         //return view('modules.customer.create');
     });
 
-    Route::post('store', function(){
+    Route::post('store', function () {
 
     });
 
-    Route::get('{id}/show', function(){
-        return view('modules.customer.show');
+    Route::get('{id}/show', function () {
+        //return view('modules.customer.show');
     });
 
-    Route::get('{id}/edit', function(){
-
-    });
-
-    Route::get('{id}/update', function(){
+    Route::get('{id}/edit', function () {
 
     });
 
-    Route::get('{id}/', function (){
+    Route::get('{id}/update', function () {
+
+    });
+
+    Route::get('{id}/', function () {
         //Route::get('{id}','ShowController@show');
     });
 });
