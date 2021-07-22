@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#pablo"> Dashboard </a>
+        <a class="navbar-brand" href="{{ route('customers.list') }}"> Hieu 2.0</a>
         <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -31,10 +31,15 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nc-icon nc-zoom-split"></i>
-                        <span class="d-lg-block">&nbsp;Search</span>
-                    </a>
+                    <form action="{{route('customers.search')}}" class="form-inline" method="post">
+                        @csrf
+                        <input type="text" class="form-control mr-sm-2" name='search' placeholder="search">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </form>
+{{--                    <a href="#" class="nav-link">--}}
+{{--                        <i class="nc-icon nc-zoom-split"></i>--}}
+{{--                        <span class="d-lg-block">&nbsp;Search</span>--}}
+{{--                    </a>--}}
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>@yield('title')</title>
+    @toastr_css
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
@@ -19,9 +20,12 @@
     <link href="{{asset('/assets/css/light-bootstrap-dashboard.css?v=2.0.0')}}" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('/assets/css/demo.css')}}" rel="stylesheet"/>
+    <link href="{{asset('toastr.css')}}" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrapper">
+    @jquery
+    @toastr_js
     @include('layout.sidebar')
     <div class="main-panel">
         @include('layout.navbar')
@@ -53,4 +57,6 @@
 <script src="{{asset('assets/js/light-bootstrap-dashboard.js')}}?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{asset('assets/js/demo.js')}}"></script>
+<script src="{{asset('jquery.min.js')}}"></script>
+@toastr_render
 </html>

@@ -1,8 +1,8 @@
 @extends('layout.master')
 @section('title','customer list')
 @section('content')
-    <a href="{{ route('customers.add') }}" class="btn btn-primary">Add Customer</a>
     <div class="col-md-12">
+        <a href="{{ route('customers.add') }}" class="btn btn-success">Add Customer</a>
         <div class="card strpied-table-with-hover">
             <div class="card-body table-full-width table-responsive">
                 <table class="table table-hover table-striped">
@@ -16,7 +16,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($customers as $customer)
+                    @forelse($customers as $customer)
                         <tr>
                             <td scope="row">{{$customer->id}}</td>
                             <td>{{$customer->name}}</td>
@@ -31,13 +31,14 @@
                                    onclick="confirm('Are you sure about that ???')" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5">No data</td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 @endsection

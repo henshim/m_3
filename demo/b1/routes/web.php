@@ -48,5 +48,9 @@ Route::prefix('/')->group(function () {
         Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.delete');
 
         Route::get('/detail/{id}', [CustomerController::class, 'show'])->name('customers.detail');
+
+        Route::post('/search', [CustomerController::class, 'search'])->name('customers.search');
     });
 });
+
+Route::get('/', [CustomerController::class, 'index'])->name('customers.list');

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Repositories\CustomerModel;
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +19,7 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -31,7 +30,7 @@ class CustomerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -42,17 +41,18 @@ class CustomerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
         $data = $request->all();
-//        $name = $data['name'];
-//        $email = $data['email'];
-//        $address = $data['address'];
-//        $insert = ['name' => $name, 'email' => $email, 'address' => $address];
+        $name = $data['name'];
+        $email = $data['email'];
+        $address = $data['address'];
+        $insert = ['name' => $name, 'email' => $email, 'address' => $address];
 //        DB::table('customers')->insert($insert);
-        $this->customerModel->add($data);
+        $this->customerModel->add($insert);
+        toastr()->success('add success');
         return redirect('customer/');
         /*dd($data);
         $this->customerModel->add($data);*/
@@ -63,7 +63,7 @@ class CustomerController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -75,7 +75,7 @@ class CustomerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -88,7 +88,7 @@ class CustomerController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request)
     {
@@ -105,11 +105,20 @@ class CustomerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         DB::table('customers')->where('id', $id)->delete($id);
         return redirect('customer/');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        //dd($search);
+        //DB::table('customers')->where('name','like',"%$search%");
+        $customers = Customer::query()->where('name', 'like', "%$search%")->get();
+        return view('customer.list', compact('customers'));
     }
 }

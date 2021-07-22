@@ -16,6 +16,7 @@ class CustomerModel extends Controller
 
     public function add($data)
     {
+        //return $data->save();
         return DB::insert('insert into customers(name,email,address)
                                     value(?,?,?)',[$data['name'],$data['email'],$data['address']]);
     }
